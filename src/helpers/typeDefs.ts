@@ -37,9 +37,10 @@ const typeDefs = gql`
     signUp(username: String!, password: String!): String! # Returns JWT
     login(username: String!, password: String!): String! # Returns JWT
     createNote(title: String!, value: String!): Note!
+    updateNote(noteId: Int!, title: String, value: String): Note!
+    toggleArchiveNote(noteId: Int!): Note! # Toggles the archive status
     markSeen(noteId: Int!): Note!
     toggleLikeNote(noteId: Int!): Note! # Toggles the like status
-    toggleArchiveNote(noteId: Int!): Note! # Toggles the archive status
     addComment(noteId: Int!, content: String!): Comment!
     deleteComment(commentId: Int!): Boolean!
   }
