@@ -37,8 +37,8 @@ const typeDefs = gql`
     login(username: String!, password: String!): String! # Returns JWT
     createNote(title: String!, value: String!): Note!
     markSeen(noteId: Int!): Note!
-    likeNote(noteId: Int!): Note!
-    archiveNote(noteId: Int!): Note!
+    toggleLikeNote(noteId: Int!): Note! # Toggles the like status
+    toggleArchiveNote(noteId: Int!): Note! # Toggles the archive status
   }
 `;
 
@@ -110,27 +110,67 @@ const resolvers = {
         include: { seenBy: true },
       });
     },
-    likeNote: async (_: any, { noteId }: any, context: any) => {
+    toggleLikeNote: async (_: any, args: { noteId: number }, context: any) => {
       if (!context.user) throw new Error("Not authenticated");
-      const note = await prisma.note.findUnique({ where: { id: noteId } });
-      if (!note) throw new Error("Note not found");
+      const userId = context.user.id;
 
-      return prisma.note.update({
+      const { noteId } = args;
+
+      const note = await prisma.note.findUnique({
         where: { id: noteId },
-        data: { likedBy: { connect: { id: context.user.id } } },
         include: { likedBy: true },
       });
-    },
-    archiveNote: async (_: any, { noteId }: any, context: any) => {
-      if (!context.user) throw new Error("Not authenticated");
-      const note = await prisma.note.findUnique({ where: { id: noteId } });
-      if (!note || note.ownerId !== context.user.id) {
-        throw new Error("Note not found or not authorized");
+
+      if (!note) {
+        throw new Error("Note not found.");
       }
-      return prisma.note.update({
+
+      const isLiked = note.likedBy.some((user) => user.id === userId);
+
+      const updatedNote = await prisma.note.update({
         where: { id: noteId },
-        data: { archivedAt: new Date() },
+        data: {
+          likedBy: isLiked
+            ? { disconnect: { id: userId } }
+            : { connect: { id: userId } },
+        },
+        include: {
+          likedBy: true,
+          seenBy: true,
+          owner: true,
+        },
       });
+
+      return updatedNote;
+    },
+    toggleArchiveNote: async (_: any, args: { noteId: number }, context: any) => {
+      if (!context.user) throw new Error("Not authenticated");
+      const userId = context.user.id;
+
+      const { noteId } = args;
+      
+      const note = await prisma.note.findUnique({
+        where: { id: noteId },
+      });
+
+      if (!note || note.ownerId !== userId) {
+        throw new Error("You do not have permission to toggle archive status for this note.");
+      }
+
+      // Toggle the archivedAt field
+      const updatedNote = await prisma.note.update({
+        where: { id: noteId },
+        data: {
+          archivedAt: note.archivedAt ? null : new Date().toISOString(),
+        },
+        include: {
+          likedBy: true,
+          seenBy: true,
+          owner: true,
+        },
+      });
+
+      return updatedNote;
     },
   },
   Note: {
