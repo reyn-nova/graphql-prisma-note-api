@@ -17,6 +17,11 @@ const listNotesQuery = async (_: any, args: any) => {
         owner: true,
         seenBy: true,
         likedBy: true,
+        comments: {
+            include: {
+                author: true
+            }
+        },
       },
     });
 }

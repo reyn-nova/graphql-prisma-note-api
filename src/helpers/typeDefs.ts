@@ -15,12 +15,22 @@ const typeDefs = gql`
     likedBy: [User!]! # List of users who have liked the note
     archivedAt: String
     owner: User!
+    comments: [Comment!]!
   }
+
+  type Comment {
+    id: Int!
+    content: String!
+    createdAt: String!
+    author: User!
+    note: Note!
+   }
 
   type Query {
     me: User
     myNotes: [Note!]!
     listNotes(ownerId: Int): [Note!]!
+    noteComments(noteId: Int!): [Comment!]!
   }
 
   type Mutation {
@@ -30,6 +40,7 @@ const typeDefs = gql`
     markSeen(noteId: Int!): Note!
     toggleLikeNote(noteId: Int!): Note! # Toggles the like status
     toggleArchiveNote(noteId: Int!): Note! # Toggles the archive status
+    addComment(noteId: Int!, content: String!): Comment!
   }
 `;
 

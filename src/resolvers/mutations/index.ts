@@ -1,3 +1,4 @@
+import addCommentMutation from "./addComment";
 import createNoteMutation from "./createNote";
 import loginMutation from "./login";
 import markSeenMutation from "./markSeen";
@@ -12,6 +13,7 @@ const mutations = {
     markSeen: markSeenMutation,
     toggleLikeNote: toggleLikeNoteMutation,
     toggleArchiveNote: toggleArchiveNoteMutation,
+    addComment: addCommentMutation
   }
 
 export default mutations;
