@@ -41,6 +41,7 @@ const typeDefs = gql`
     toggleLikeNote(noteId: Int!): Note! # Toggles the like status
     toggleArchiveNote(noteId: Int!): Note! # Toggles the archive status
     addComment(noteId: Int!, content: String!): Comment!
+    deleteComment(commentId: Int!): Boolean!
   }
 `;
 
