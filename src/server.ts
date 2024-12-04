@@ -29,6 +29,7 @@ const typeDefs = gql`
   type Query {
     me: User
     myNotes: [Note!]!
+    listNotes(ownerId: Int): [Note!]!
   }
 
   type Mutation {
@@ -51,6 +52,26 @@ const resolvers = {
     myNotes: async (_: any, __: any, context: any) => {
       if (!context.user) throw new Error("Not authenticated");
       return prisma.note.findMany({ where: { ownerId: context.user.id } });
+    },
+    listNotes: async (_: any, args: any, context: any) => {
+      // Destructure ownerId from arguments
+      const { ownerId } = args;
+
+      const where: any = {
+        archivedAt: null,
+      };
+      if (ownerId) {
+        where.id = ownerId;
+      }
+
+      return prisma.note.findMany({
+        where,
+        include: {
+          owner: true,
+          seenBy: true,
+          likedBy: true,
+        },
+      });
     },
   },
   Mutation: {
