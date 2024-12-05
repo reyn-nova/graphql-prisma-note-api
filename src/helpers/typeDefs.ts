@@ -36,6 +36,8 @@ const typeDefs = gql`
   type Mutation {
     signUp(username: String!, password: String!): String! # Returns JWT
     login(username: String!, password: String!): String! # Returns JWT
+    updateUsername(newUsername: String!): User!
+    updatePassword(currentPassword: String!, newPassword: String!): User!
     createNote(title: String!, value: String!): Note!
     updateNote(noteId: Int!, title: String, value: String): Note!
     toggleArchiveNote(noteId: Int!): Note! # Toggles the archive status

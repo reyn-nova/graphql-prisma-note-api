@@ -11,6 +11,8 @@
 - [toggleArchiveNote.ts](src/resolvers/mutations/toggleArchiveNote.ts)
 - [toggleLikeNote.ts](src/resolvers/mutations/toggleLikeNote.ts)
 - [updateNote.ts](src/resolvers/mutations/updateNote.ts)
+- [updatePassword.ts](src/resolvers/mutations/updatePassword.ts)
+- [updateUsername.ts](src/resolvers/mutations/updateUsername.ts)
 ## Queries
 
 - [listNotes.ts](src/resolvers/queries/listNotes.ts)
