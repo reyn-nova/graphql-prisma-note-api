@@ -39,7 +39,7 @@ const typeDefs = gql`
     createNote(title: String!, value: String!): Note!
     updateNote(noteId: Int!, title: String, value: String): Note!
     toggleArchiveNote(noteId: Int!): Note! # Toggles the archive status
-    markSeen(noteId: Int!): Note!
+    markSeenNote(noteId: Int!): Note!
     toggleLikeNote(noteId: Int!): Note! # Toggles the like status
     addComment(noteId: Int!, content: String!): Comment!
     deleteComment(commentId: Int!): Boolean!

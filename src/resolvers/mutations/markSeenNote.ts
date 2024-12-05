@@ -1,7 +1,7 @@
 import { prisma } from "../../helpers/prismaInstance";
 import { checkAndGetSessionUser } from "../../helpers/user";
 
-const markSeenMutation = async (_: any, { noteId }: any, context: any) => {
+const markSeenNoteMutation = async (_: any, { noteId }: any, context: any) => {
     const user = checkAndGetSessionUser(context)
 
     const note = await prisma.note.findUnique({ where: { id: noteId } });
@@ -14,4 +14,4 @@ const markSeenMutation = async (_: any, { noteId }: any, context: any) => {
     });
 }
 
-export default markSeenMutation;
+export default markSeenNoteMutation;

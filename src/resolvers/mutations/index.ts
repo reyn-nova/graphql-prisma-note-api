@@ -2,7 +2,7 @@ import addCommentMutation from "./addComment";
 import createNoteMutation from "./createNote";
 import deleteCommentMutation from "./deleteComment";
 import loginMutation from "./login";
-import markSeenMutation from "./markSeen";
+import markSeenNoteMutation from "./markSeenNote";
 import signUpMutation from "./signUp";
 import toggleArchiveNoteMutation from "./toggleArchiveNote";
 import toggleLikeNoteMutation from "./toggleLikeNote";
@@ -13,7 +13,7 @@ const mutations = {
     login: loginMutation,
     createNote: createNoteMutation,
     updateNote: updateNoteMutation,
-    markSeen: markSeenMutation,
+    markSeenNote: markSeenNoteMutation,
     toggleLikeNote: toggleLikeNoteMutation,
     toggleArchiveNote: toggleArchiveNoteMutation,
     addComment: addCommentMutation,

@@ -23,7 +23,9 @@ const generateReadMeForFolder = (folderPath, title) => {
 
     // Add each file to the markdown list
     fileList.forEach(file => {
-      markdownContent += `- [${file}](${path.join(folderPath, file)})\n`;
+        if (!file.startsWith('index')) {
+            markdownContent += `- [${file}](${path.join(folderPath, file)})\n`;
+        }
     });
 
     // Append content to the README.md file

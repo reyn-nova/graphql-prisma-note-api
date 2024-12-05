@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "build": "tsc",
+    "commit": "node readmeGenerator.js; git add .; git commit -m",
     "start": "node dist/server.js",
     "prisma": "prisma"
   },
