@@ -27,7 +27,7 @@ const typeDefs = gql`
    }
 
   type Query {
-    me: User
+    myProfile: User
     myNotes: [Note!]!
     listNotes(ownerId: Int): [Note!]!
     noteComments(noteId: Int!): [Comment!]!

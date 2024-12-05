@@ -16,6 +16,6 @@
 ## Queries
 
 - [listNotes.ts](src/resolvers/queries/listNotes.ts)
-- [me.ts](src/resolvers/queries/me.ts)
 - [myNotes.ts](src/resolvers/queries/myNotes.ts)
+- [myProfile.ts](src/resolvers/queries/myProfile.ts)
 - [noteComments.ts](src/resolvers/queries/noteComments.ts)
